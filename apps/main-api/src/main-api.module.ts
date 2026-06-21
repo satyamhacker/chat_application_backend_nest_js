@@ -6,6 +6,8 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { UsersModule } from './modules/users/users.module';
 import { ChatsModule } from './modules/chats/chats.module';
 import { MessagesModule } from './modules/messages/messages.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -32,6 +34,16 @@ import { MessagesModule } from './modules/messages/messages.module';
         limit: 10,
       },
     ]),
+    ScheduleModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    BullModule.registerQueue({
+      name: 'notification-queue',
+    }),
     UsersModule,
     ChatsModule,
     MessagesModule,
@@ -44,3 +56,4 @@ import { MessagesModule } from './modules/messages/messages.module';
   ],
 })
 export class AppModule { }
+
