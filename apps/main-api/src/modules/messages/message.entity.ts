@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
-import { User } from '../users/user.entity';
+import { User } from '../users/users.entity';
 import { ChatGroup } from '../chats/chat-group.entity';
 
 @Entity('messages')
